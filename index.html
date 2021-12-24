@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- material icons cdn -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Excel Document</title>
+</head>
+<body>
+     <!-- page actions container -->
+     <div class="page-actions-container">
+         <!-- Home -->
+         <div class="page-action">Home</div>
+         <!-- File -->
+         <div class="page-action">File</div>
+         <!-- Insert -->
+         <div class="page-action">Insert</div>
+         <!-- Layout -->
+         <div class="page-action">Layout</div>
+         <!-- Help -->
+         <div class="page-action">Help</div>
+     </div>
+      <!--cell properties actions container  -->
+     <div class="cellprop-actions-container">
+         <!-- cut-content icon -->
+        <span class="material-icons">content_cut</span>
+         <!-- copy-content icon -->
+        <span class="material-icons">content_copy</span>
+        <!-- paste-content icon -->
+        <span class="material-icons">content_paste</span>
+        
+        <!--Font Family  -->
+        <select class="font-family-prop">
+            <option value="monospace">monospace</option>
+            <option value="sans-serif">sans-serif</option>
+            <option value="cursive">cursive</option>
+            <option value="fantasy">fantasy</option>
+            <option value="arial">arial</option>
+        </select>
+        <!-- Font Size -->
+        <select class="font-size-prop">
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="21">21</option>
+            <option value="24">24</option>
+        </select>
+        <!-- bold-content icon -->
+        <!-- ye span elements hai to inke uper height width set nahi kr skte to inke display ko kr denge inline-block-->
+        <!-- inline elements inline ki tarah perform krti hai and height width bhi set kr skte hai -->
+        <span class="material-icons bold">format_bold</span>
+        <!-- italic-content icon -->
+        <span class="material-icons italic">format_italic</span>
+        <!-- underline-content icon -->
+        <span class="material-icons underlined">format_underlined</span>
+        <!-- align-left icon -->
+        <span class="left material-icons alignment">format_align_left</span>
+         <!-- align-center icon -->  
+         <span class="center material-icons alignment">format_align_center</span> 
+        <!-- align-right icon -->
+        <span class="right material-icons alignment">format_align_right</span>
+        <!-- align-justify icon -->
+        <span class="justify material-icons alignment">format_align_justify</span>
+       <!-- font-color-icon -->
+        <div class="color-prop">
+            <input type="color" class="font-color-prop">
+            <span class="material-icons">format_color_text</span>
+        </div>
+        
+        <!-- background-color-icon -->
+        <div class="color-prop">
+            <input type="color" class="background-color-prop">
+            <span class="material-icons">format_color_fill</span>
+        </div>
+     </div> 
+
+     <!-- Formula Container -->
+     <div class="formula-actions-container">
+         <input type="text" readonly class="address-bar">
+         <img class="formula-icon" src="https://img.icons8.com/ios/50/000000/formula-fx.png"/>
+         <input type="text" class="formula-bar">
+     </div>
+
+     <!-- grid container -->
+     <div class="grid-container">
+              <!-- dummy box at top-left corner  -->
+              <div class="top-left-dummy-box"></div>
+              <!-- address colm -->
+              <div class="address-col-container"></div>
+               <!-- cells-container -->
+              <div class="cells-container">
+                  <!-- address row -->
+                  <div class="address-row-container"></div>
+              </div>
+     </div>
+     <!-- sheet actions container -->
+     <div class="sheet-actions-container">
+        <div class="sheet-add-icon">
+            <span class="material-icons">post_add</span>
+        </div>
+        <div class="sheets-folder-container">
+            <div class="sheet-folder">Sheet1</div>
+        </div>
+     </div>
+
+
+     <script src="grid.js"></script>
+     <!-- we can access all the variables and functions from grid.js in cell-properties.js -->
+     <script src="cell-properties.js"></script>
+     <script src="cycleValidation.js"></script>
+     <script src="formula.js"></script>
+     
+</body>
+</html>
