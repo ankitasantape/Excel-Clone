@@ -7,8 +7,8 @@
 <br>
 </p>
 <p align="center">
-    <a href="https://github.com/ankitasantape/MyOpenBoard.git">
-        <img style="border-radius:50%" src="https://github.com/ankitasantape/MyOpenBoard/blob/main/Public/Icons/sshot1.png" alt="Logo" width="400" height="300"> 
+    <a href="https://github.com/ankitasantape/Excel-Clone">
+        <img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(914).png" alt="Logo" width="400" height="300"> 
 </p>
  
     
@@ -27,8 +27,32 @@
 - Can Download as well as Upload sheets.
 
 ## 📌 Screenshots
- <img style="border-radius:50%" src="https://github.com/ankitasantape/MyOpenBoard/blob/main/Public/Icons/sshot2.png" alt="Logo" width="400" height="300">
+- We can Cut, Copy, and Paste.
+ <img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(915).png" alt="Logo" width="400" height="300">
 
+- You an change the color of cell.
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(928).png" alt="Logo" width="400" height="300">
+
+- We can evaluate the value of cell.
+ <img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(918).png" alt="Logo" width="400" height="300">
+
+- It will detect the cycle if in case the cells of your formula are dependent on each other. Then, it is impossible to determine the value of the formula you have entered. To avoid this situation, it will give us an alert. 
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(920).png" alt="Logo" width="400" height="300">
+
+- If you want to trace the path.
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(921).png" alt="Logo" width="400" height="300">
+
+- Red color will detect the exact location of the cell.
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(922).png" alt="Logo" width="400" height="300">
+
+- You can add multiple sheets.
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(925).png" alt="Logo" width="400" height="300">
+
+- If you want to delete sheet, it will pop-up an alert for your confirmation.
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(926).png" alt="Logo" width="400" height="300">
+
+- After deleting sheet the cursor will automatically get ack to the sheet1.
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(927).png" alt="Logo" width="400" height="300">
     
 ## 📷 Live Demo 
 
