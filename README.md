@@ -1,4 +1,4 @@
-## 🚀 MyOpenBoard
+## 🚀 Excel-Clone
 
 <p align="center">
 <br>
