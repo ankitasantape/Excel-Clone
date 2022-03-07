@@ -53,6 +53,8 @@
 
 - After deleting sheet the cursor will automatically get ack to the sheet1.
 <img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(927).png" alt="Logo" width="400" height="300">
+
+<img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/sshot.png" alt="Logo" width="400" height="300">
     
 ## 📷 Live Demo 
 
