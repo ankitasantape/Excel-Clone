@@ -42,7 +42,7 @@
 - If you want to trace the path.
 <img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(921).png" alt="Logo" width="400" height="300">
 
-- Red color will detect the exact location of the cell.
+- Red color will detect the exact location of the cell where this dependency occur.
 <img style="border-radius:50%" src="https://github.com/ankitasantape/Excel-Clone/blob/main/images/Screenshot%20(922).png" alt="Logo" width="400" height="300">
 
 - You can add multiple sheets.
