@@ -1,118 +1,146 @@
-// cell -> formula remove /value set 
-for (let i = 0; i < AllGridCells.length; i++) {
-    AllGridCells[i].addEventListener("blur", function cellHelper(e) {
-        let content = AllGridCells[i].textContent;
-        let address = addressInput.value;
-        let { rid, cid } = getRidCidFromAddress(address);
-        let cellObject = db[rid][cid];
-        // set self ui as well as children new values and ui
-        if (cellObject.value == content) {
+for(let i = 0 ; i < rows ; i++){
+    for(let j = 0 ; j < cols ; j++){
+        let cell = document.querySelector(`.cells[rID="${i}"][cID="${j}"]`);
+        cell.addEventListener("blur" , function(e){
+            let address = addressBar.value;
+            let[currCell , cellProp] = activeCell(address);
+            let enteredData = currCell.innerText;
+            let checkenteredData = (Number)(enteredData);
+            let cval = (Number)(cellProp.value);
+            if( checkenteredData == cval ){
+                return;
+            }
+            cellProp.value = enteredData;  // STORAGE CHANGE
+            // if data modifies remove P-C connection , formula empty and update childrens with new modified values
+            console.log(address);
+            removeChildFromParent(cellProp.formula);
+            cellProp.formula = "";
+            updateChildrenCells(address);
+            
+            // console.log(cellProp);
+        })
+    }
+}
+
+let formulaBar = document.querySelector(".formula-bar");
+
+formulaBar.addEventListener("keydown" , async function(e){
+    let inputFormula = formulaBar.value;
+    if(e.key === "Enter" && inputFormula != ""){
+        let address = addressBar.value;
+        let[cell , cellProp] = activeCell(address);
+        if(inputFormula !== cellProp.formula){
+            // If Change In formula break old P-C relation , evaluate new formula and establish new P-C relation
+            removeChildFromParent(cellProp.formula);
+        }
+        addChildToGraphComponent(inputFormula , address);
+        //  Check Formula if cyclic or not -> then only evaluate
+        let cycleResponse = isGraphCyclic(graphComponentMatrix);
+        if(cycleResponse){
+            let response = confirm("Your Formula Is Cyclic.Do You Want To Trace Your Path?");
+            while(response == true){
+                // Keep On Tracking Color Until User Is Satisfied
+                await isGraphCyclicTracePath(graphComponentMatrix , cycleResponse); 
+                // I want to complete full iteration of color track and after that 
+                // want alert to pop up again so i'll use await here also
+                response = confirm("Your Formula Is Cyclic.Do You Want To Trace Your Path?");
+            }
+            removeChildFromGraphComponent(inputFormula , address);
             return;
         }
-        if (cellObject.formula) {
-            removeFormula(address, cellObject.formula);
-            cellObject.formula = "";
-        }
-        setUI(content, rid, cid);
-    })
-}
-// formula bar
-// set Formula/update formula
-formulaInput.addEventListener("keydown", function (e) {
-    if (e.key == "Enter" && formulaInput.value != "") {
-        // fomrula get
-        let cFormula = formulaInput.value;
-
-        // address -> jispe formula jo value get wo set ho jaayegi 
-        let addressOfTheCell = addressInput.value;
-        let { rid, cid } = getRidCidFromAddress(addressOfTheCell);
-        let cellObject = db[rid][cid];
-        if (cellObject.formula != cFormula) {
-            removeFormula(addressOfTheCell, cellObject.formula);
-        }
-        // console.log(cFormula);
-        let value = evaluateFormula(cFormula);
-        // console.log(value);
-        setUI(value, rid, cid);
-        cellObject.formula = cFormula;
-        setFormula(addressOfTheCell, cFormula);
+        let evaluatedValue = evaluateFormula(inputFormula);
+       
+        //To update UI and cellProp in DB
+        setCellUIAndCellProp(evaluatedValue , inputFormula , address);
+        addChildToParent(inputFormula);
+        updateChildrenCells(address);
+        // console.log(sheetDB);
     }
 })
-function evaluateFormula(formula) {
-    // console.log(formula);
-    // ( A1 + A2 ) -> ( 10 + 20 )
-    let formulaEntities = formula.split(" ");
-    // [(,A1,+,A2,)]
-    // console.log(formulaEntities);
-    for (let i = 0; i < formulaEntities.length; i++) {
-        let ascii = formulaEntities[i].charCodeAt(0);
-        if (ascii >= 65 && ascii <= 90) {
-            // address -> rid cId
-            let cellrcObj = getRidCidFromAddress(formulaEntities[i]);
-            // db -> value
-            let value = db[cellrcObj.rid][cellrcObj.cid].value;
-            // replace in formula
-            formula = formula.replace(formulaEntities[i], value);
-        }
-    }
-    // console.log(formula);
-    // eval -> evaluate-> inbuilt 
-    let result = eval(formula);
-    return result;
-}
-function setUI(value, rid, cid) {
-    let tobeChangedCell = document.querySelector(`.grid .cell[rId='${rid}'][cId='${cid}']`);
-    tobeChangedCell.textContent = value;
-    db[rid][cid].value = value;
-    // change your children -> re-evaulate -> set ui
-    let childrenArr = db[rid][cid].children;
-    // B1
-    for (let i = 0; i < childrenArr.length; i++) {
-        let chriciobj = getRidCidFromAddress(childrenArr[i]);
-        let chCellObj = db[chriciobj.rid][chriciobj.cid];
-        let value = evaluateFormula(chCellObj.formula);
-        setUI(value, chriciobj.rid, chriciobj.cid)
-    }
-}
-//  to set a cell as children of a cell jispe depenedent 
-function setFormula(address, formula) {
-    // console.log(formula);
-    // ( A1 + A2 ) -> ( 10 + 20 )
-    let formulaEntities = formula.split(" ");
-    // [(,A1,+,A2,)]
-    // console.log(formulaEntities);
-    for (let i = 0; i < formulaEntities.length; i++) {
-        let ascii = formulaEntities[i].charCodeAt(0);
-        if (ascii >= 65 && ascii <= 90) {
-            // address -> rid cId
-            let parentrcObj = getRidCidFromAddress(formulaEntities[i]);
-            // db -> value
-            let children = db[parentrcObj.rid][parentrcObj.cid].children;
-            children.push(address);
-            // replace in formula
 
-        }
+function addChildToGraphComponent(formula , childAddress){
+   let [crid , ccid] = indexDecoder(childAddress);
+   let encodedFormula = formula.split(" ");
+   for(let i = 0 ; i < encodedFormula.length ; i++){
+    let asciiValue = encodedFormula[i].charCodeAt(0);
+    if(asciiValue >= 65 && asciiValue <= 90){
+        let [prid , pcid] = indexDecoder(encodedFormula[i]);
+        graphComponentMatrix[prid][pcid].push([crid , ccid]);
     }
-    console.log(formula);
+   }
 }
-//  to set a cell as children of a cell jispe depenedent 
-function removeFormula(address, formula) {
-    // console.log(formula);
-    // ( A1 + A2 ) -> ( 10 + 20 )
-    let formulaEntities = formula.split(" ");
-    // [(,A1,+,A2,)]
-    // console.log(formulaEntities);
-    for (let i = 0; i < formulaEntities.length; i++) {
-        let ascii = formulaEntities[i].charCodeAt(0);
-        if (ascii >= 65 && ascii <= 90) {
-            // address -> rid cId
-            let parentrcObj = getRidCidFromAddress(formulaEntities[i]);
-            // db -> value
-            let children = db[parentrcObj.rid][parentrcObj.cid].children;
-            let idx = children.indexOf(address);
-            children.splice(idx, 1);
-            // replace in formula
+
+function removeChildFromGraphComponent(formula , childAddress){
+    let [crid , ccid] = indexDecoder(childAddress); // This statement is optional
+    let encodedFormula = formula.split(" ");
+    for(let i = 0 ; i < encodedFormula.length ; i++){
+     let asciiValue = encodedFormula[i].charCodeAt(0);
+     if(asciiValue >= 65 && asciiValue <= 90){
+         let [prid , pcid] = indexDecoder(encodedFormula[i]);
+         graphComponentMatrix[prid][pcid].pop();
+     }
+    }
+}
+
+function updateChildrenCells(parentAddress){
+    let[parentCell , parentCellProp] = activeCell(parentAddress);
+    let children = parentCellProp.children;
+
+    for(let i = 0 ; i < children.length ; i++){
+        let childAddress =  children[i];
+        let[childCell , childCellProp] = activeCell(childAddress);
+        let childFormula = childCellProp.formula;
+
+        let evaluatedValue = evaluateFormula(childFormula);
+        setCellUIAndCellProp(evaluatedValue , childFormula , childAddress);
+        updateChildrenCells(childAddress); // recursive function for all childrens
+    }
+}
+
+function addChildToParent(formula){
+    let childAddress = addressBar.value;
+    let encodedFormula = formula.split(" "); 
+    for(let i = 0 ; i < encodedFormula.length ; i++){
+        let asciiValue = encodedFormula[i].charCodeAt(0);
+        if(asciiValue >= 65 && asciiValue <= 90){
+            let [parentCell ,parentCellProp] = activeCell(encodedFormula[i]);
+            parentCellProp.children.push(childAddress);
         }
     }
-    console.log(formula);
+}
+
+function removeChildFromParent(formula){
+    let childAddress = addressBar.value;
+    let encodedFormula = formula.split(" "); 
+    for(let i = 0 ; i < encodedFormula.length ; i++){
+        let asciiValue = encodedFormula[i].charCodeAt(0);
+        if(asciiValue >= 65 && asciiValue <= 90){
+            let [parentCell ,parentCellProp] = activeCell(encodedFormula[i]);
+            let idx = parentCellProp.children.indexOf(childAddress);
+            parentCellProp.children.splice(idx , 1);
+        }
+    }
+}
+
+function evaluateFormula(formula){
+    let encodedFormula = formula.split(" ");
+    for(let i = 0 ; i < encodedFormula.length ; i++){
+        let asciiValue = encodedFormula[i].charCodeAt(0);
+        if(asciiValue >= 65 && asciiValue <= 90){
+            let [cell , cellProp] = activeCell(encodedFormula[i]);
+            encodedFormula[i] = cellProp.value;
+        }
+    }
+    let decodedFormula = encodedFormula.join(" ");
+    return eval(decodedFormula);
+}
+
+function setCellUIAndCellProp(evaluatedValue , formula , address){
+    let[cell , cellProp] = activeCell(address);
+
+    //UI Update
+    cell.innerText = evaluatedValue;
+    //DB Update
+    cellProp.value = evaluatedValue;
+    cellProp.formula = formula;
 }
