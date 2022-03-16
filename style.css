@@ -20,8 +20,8 @@
   }
   .page-actions-cont>*:hover{
       font-weight: bold;
-      /* background:grey;  */
-      /* background-color: #4b4b4b; */
+      color:rgb(10, 97, 32); 
+      background-color: rgb(221, 221, 218);
       cursor: pointer;
   }
   .menu-bar{
@@ -37,7 +37,7 @@
       cursor: pointer;
   }
   .menu-bar >:hover{
-      background-color: white
+      background-color: rgb(245, 241, 241)
   }
   .menu-bar > select{
       border: none;
@@ -142,10 +142,10 @@
       font-size: 0.8rem;
   }
   .top-row-cell:hover{
-      background-color: rgb(76, 209, 136);
+      background-color: rgb(150, 153, 151);
   }
   .left-col-cell:hover{
-      background-color: rgb(76, 209, 136);
+      background-color: rgb(150, 153, 151);
   }
   .grid{
       /* height: 100vh ; */
@@ -184,12 +184,14 @@
   .cells{
       height: 1.5rem;
       min-width: 4rem;
-      border: 1px solid #ebeff3;
-      /* border: 1px solid #478de2; */
+      border: 1px solid #dddddd;
+      /* border: 1px solid #d3d4d4; */
       outline: none;
       /* display: flex;
       align-items: center;
       justify-content: center; */
+      overflow-y: hidden;
+      overflow-x: hidden;
   }
   
   .sheet-container{
@@ -208,7 +210,7 @@
       font-size: 0.1rem;
   }
   .sheet-add-icon:hover{
-      background-color: rgb(76, 209, 136);
+      background-color: rgb(178, 182, 179);;
       cursor: pointer;
   }
   .sheet-folder-cont{

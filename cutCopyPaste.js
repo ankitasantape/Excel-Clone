@@ -1,4 +1,5 @@
 let ctrlKey;
+
 document.addEventListener("keydown", function(e) {
     ctrlKey = e.ctrlKey;
 })
@@ -49,6 +50,8 @@ let cutData = [];
 let cutClicked = false;
 let copyClicked = false;
 var tempArray = [];
+
+
 copyBtn.addEventListener("click", function(e){
     copyClicked = true;
     if (rangeStorage.length < 2) return;
@@ -79,7 +82,7 @@ cutBtn.addEventListener("click", function(e){
         let cutRow = [];
         for(let j = stcol ; j <= endcol ; j++){
             let cellProp = sheetDB[i][j];
-            console.log(cellProp);
+            // console.log(cellProp);
             cutRow.push(cellProp);
         }
         cutData.push(cutRow);
