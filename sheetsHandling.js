@@ -1,4 +1,4 @@
-let activeSheetColor = "rgb(190, 175, 160)";
+let activeSheetColor = "#a2a6a4";
 let sheetFolderCont = document.querySelector(".sheet-folder-cont");
 let addSheetBtn = document.querySelector(".sheet-add-icon");
 addSheetBtn.addEventListener("click" , function(e){

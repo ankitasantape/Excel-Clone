@@ -20,8 +20,8 @@
   }
   .page-actions-cont>*:hover{
       font-weight: bold;
-      color:rgb(10, 97, 32); 
-      background-color: rgb(221, 221, 218);
+      /* color:rgb(10, 97, 32); 
+      background-color: rgb(221, 221, 218); */
       cursor: pointer;
   }
   .menu-bar{

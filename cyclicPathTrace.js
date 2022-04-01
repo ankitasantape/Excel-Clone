@@ -44,7 +44,7 @@ async function dfsCycleValidationTracePath(graphComponentMatrix , srcr , srcc , 
     dfsVisited[srcr][srcc] = true;
 
     let cell = document.querySelector(`.cells[rID="${srcr}"][cID="${srcc}"]`);
-    cell.style.backgroundColor = "#CBC3E3";
+    cell.style.backgroundColor = "#4aed6a";
     await colorPromise(); // Wait For 1 sec to resolve Promise
 
     for(let children = 0 ; children < graphComponentMatrix[srcr][srcc].length ; children++){
@@ -58,7 +58,7 @@ async function dfsCycleValidationTracePath(graphComponentMatrix , srcr , srcc , 
             }
         }else if(visited[nbrr][nbrc] == true && dfsVisited[nbrr][nbrc] == true){
             let cyclicCell =  document.querySelector(`.cells[rID="${srcr}"][cID="${srcc}"]`);
-            cyclicCell.style.backgroundColor = "lightsalmon";
+            cyclicCell.style.backgroundColor = "#f04741";
             await colorPromise();
             cyclicCell.style.backgroundColor = "white";
             await colorPromise();

@@ -30,7 +30,7 @@ let sheetDB = [];
 //     sheetDB.push(sheetRow);
 // }
 
-let activeColorProp = "rgb(170, 145, 140)";
+let activeColorProp = "#a2a6a4";
 let inactiveColorProp = "#ddddda";
 
 // Selectors for cell properties
